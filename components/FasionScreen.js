@@ -7,8 +7,31 @@ import {
   StyleSheet,
   Image,
   ScrollView,
+  FlatList
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+
+import giay1 from '../assets/giay1.png';
+import giay2 from '../assets/giay2.png';
+import giay3 from '../assets/giay3.png';
+import giay4 from '../assets/giay4.png';
+import giay5 from '../assets/giay5.png';
+import giay6 from '../assets/giay6.png';
+import giay7 from '../assets/giay7.png';
+
+const products = [
+  { id: '1', name: 'Converse Heart', price: '$1500', rating: 4, image: giay1 },
+  { id: '2', name: 'Converse motion', price: '$1000', rating: 5, image: giay2 },
+  { id: '3', name: 'converse 70s', price: '$700', rating: 4, image: giay3 },
+  { id: '4', name: 'Converse 70 AT CX', price: '$500', rating: 4, image: giay4 },
+];
+
+const relevantProducts = [
+  { id: '5', name: 'Converse Legacy', price: '$15', rating: 4, image: giay5 },
+  { id: '6', name: 'Converse motion', price: '$23', rating: 5, image: giay6 },
+  { id: '7', name: 'Converse hike', price: '$23', rating: 5, image: giay7 },
+];
+
 
 const FasionScreen = ({ navigation }) => {
   const [name, setName] = useState('');
@@ -17,14 +40,34 @@ const FasionScreen = ({ navigation }) => {
     navigation.navigate('List', { userName: name });
   };
 
+  const renderProduct = ({ item }) => (
+    <TouchableOpacity
+      onPress={() => navigation.navigate('FashionDetail', { fashion: item })}
+      style={styles.productCard}
+      key={item.id}>
+      <Image source={item.image} style={styles.productImage} />
+      <Text style={styles.productName}>{item.name}</Text>
+      <Text style={styles.productPrice}>{item.price}</Text>
+    </TouchableOpacity>
+  );
+
+  const renderRelevantProduct = (item) => (
+    <TouchableOpacity
+      onPress={() => navigation.navigate('FashionDetail', { fashion: item })}
+      style={styles.relevantProductCard}
+      key={item.id}>
+      <Image source={item.image} style={styles.productImage} />
+      <Text style={styles.productName}>{item.name}</Text>
+      <Text style={styles.productPrice}>{item.price}</Text>
+    </TouchableOpacity>
+  );
+
   return (
     <View style={styles.homeContainer}>
       <View style={styles.home1}>
         <View style={{ flexDirection: 'row' }}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Icon name="arrow-left" size={20} color="#9095A0" />
-          </TouchableOpacity>
-          <Text style={{ left: 20, fontWeight: 'bold' }}>Fashion</Text>
+          
+          <Text style={{ fontSize:24, fontWeight: 'bold' }}>Fashion</Text>
         </View>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <Icon
@@ -45,7 +88,7 @@ const FasionScreen = ({ navigation }) => {
             padding: 10,
             borderWidth: 1,
             borderRadius: 10,
-            width: 240,
+            width: '85%',
             borderColor: '#9095A0',
           }}>
           <Icon name="search" size={15} color="#9095A0" />
@@ -148,296 +191,61 @@ const FasionScreen = ({ navigation }) => {
       </View>
 
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <View style={styles.home5}>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              padding: 10,
-              borderWidth: 1,
-              borderRadius: 10,
-              borderColor: '#9095A0',
-            }}>
-            <View style={{ flexDirection: 'row' }}>
-              <Image
-                source={require('../assets/giay2.png')}
-                style={{ width: 50, height: 50 }}
-              />
-              <View>
-                <Text style={{ fontWeight: 'bold' }}>Converse run star hike</Text>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    marginTop: 10,
-                  }}>
-                  <Image
-                    source={require('../assets/Star.png')}
-                    style={{ width: 12, height: 12 }}
-                  />
-                  <Image
-                    source={require('../assets/Star.png')}
-                    style={{ width: 12, height: 12 }}
-                  />
-                  <Image
-                    source={require('../assets/Star.png')}
-                    style={{ width: 12, height: 12 }}
-                  />
-                  <Image
-                    source={require('../assets/Star.png')}
-                    style={{ width: 12, height: 12 }}
-                  />
-                  <Icon name="star" size={10} color="#9095A0" />
-                </View>
-              </View>
-            </View>
-            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-              <TouchableOpacity
-                style={{
-                  borderWidth: 2,
-                  borderRadius: 100,
-                  padding: 5,
-                  alignItems: 'center',
-                  width: 25,
-                  borderColor: '#aa89eb',
-                }}>
-                <Icon name="plus" size={12} color="#aa89eb" />
-              </TouchableOpacity>
-              <Text style={{ fontWeight: 'bold', fontSize: 16 }}>$899</Text>
-            </View>
-          </View>
+        <FlatList
+          data={products}
+          renderItem={renderProduct}
+          keyExtractor={(item) => item.id}
+          numColumns={2}
+          contentContainerStyle={styles.productGrid}
+        />
 
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              padding: 10,
-              borderWidth: 1,
-              borderRadius: 10,
-              borderColor: '#9095A0',
-              marginTop: 10,
-            }}>
-            <View style={{ flexDirection: 'row' }}>
-              <Image
-                source={require('../assets/giay2.png')}
-                style={{ width: 50, height: 50 }}
-              />
-              <View>
-                <Text style={{ fontWeight: 'bold' }}>Converse run star hike</Text>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    marginTop: 10,
-                  }}>
-                  <Image
-                    source={require('../assets/Star.png')}
-                    style={{ width: 12, height: 12 }}
-                  />
-                  <Image
-                    source={require('../assets/Star.png')}
-                    style={{ width: 12, height: 12 }}
-                  />
-                  <Image
-                    source={require('../assets/Star.png')}
-                    style={{ width: 12, height: 12 }}
-                  />
-                  <Image
-                    source={require('../assets/Star.png')}
-                    style={{ width: 12, height: 12 }}
-                  />
-                  <Icon name="star" size={10} color="#9095A0" />
-                </View>
-              </View>
-            </View>
-            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-              <TouchableOpacity
-                style={{
-                  borderWidth: 2,
-                  borderRadius: 100,
-                  padding: 5,
-                  alignItems: 'center',
-                  width: 25,
-                  borderColor: '#aa89eb',
-                }}>
-                <Icon name="plus" size={12} color="#aa89eb" />
-              </TouchableOpacity>
-              <Text style={{ fontWeight: 'bold', fontSize: 16 }}>$899</Text>
-            </View>
-          </View>
-
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              padding: 10,
-              borderWidth: 1,
-              borderRadius: 10,
-              borderColor: '#9095A0',
-              marginTop: 10,
-            }}>
-            <View style={{ flexDirection: 'row' }}>
-              <Image
-                source={require('../assets/giay2.png')}
-                style={{ width: 50, height: 50 }}
-              />
-              <View>
-                <Text style={{ fontWeight: 'bold' }}>Converse run star hike</Text>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    marginTop: 10,
-                  }}>
-                  <Image
-                    source={require('../assets/Star.png')}
-                    style={{ width: 12, height: 12 }}
-                  />
-                  <Image
-                    source={require('../assets/Star.png')}
-                    style={{ width: 12, height: 12 }}
-                  />
-                  <Image
-                    source={require('../assets/Star.png')}
-                    style={{ width: 12, height: 12 }}
-                  />
-                  <Image
-                    source={require('../assets/Star.png')}
-                    style={{ width: 12, height: 12 }}
-                  />
-                  <Icon name="star" size={10} color="#9095A0" />
-                </View>
-              </View>
-            </View>
-            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-              <TouchableOpacity
-                style={{
-                  borderWidth: 2,
-                  borderRadius: 100,
-                  padding: 5,
-                  alignItems: 'center',
-                  width: 25,
-                  borderColor: '#aa89eb',
-                }}>
-                <Icon name="plus" size={12} color="#aa89eb" />
-              </TouchableOpacity>
-              <Text style={{ fontWeight: 'bold', fontSize: 16 }}>$789</Text>
-            </View>
-          </View>
-
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              padding: 10,
-              borderWidth: 1,
-              borderRadius: 10,
-              borderColor: '#9095A0',
-              marginTop: 10,
-            }}>
-            <View style={{ flexDirection: 'row' }}>
-              <Image
-                source={require('../assets/giay2.png')}
-                style={{ width: 50, height: 50 }}
-              />
-              <View>
-                <Text style={{ fontWeight: 'bold' }}>Converse run star hike</Text>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    marginTop: 10,
-                  }}>
-                  <Image
-                    source={require('../assets/Star.png')}
-                    style={{ width: 12, height: 12 }}
-                  />
-                  <Image
-                    source={require('../assets/Star.png')}
-                    style={{ width: 12, height: 12 }}
-                  />
-                  <Image
-                    source={require('../assets/Star.png')}
-                    style={{ width: 12, height: 12 }}
-                  />
-                  <Image
-                    source={require('../assets/Star.png')}
-                    style={{ width: 12, height: 12 }}
-                  />
-                  <Icon name="star" size={10} color="#9095A0" />
-                </View>
-              </View>
-            </View>
-            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-              <TouchableOpacity
-                style={{
-                  borderWidth: 2,
-                  borderRadius: 100,
-                  padding: 5,
-                  alignItems: 'center',
-                  width: 25,
-                  borderColor: '#aa89eb',
-                }}>
-                <Icon name="plus" size={12} color="#aa89eb" />
-              </TouchableOpacity>
-              <Text style={{ fontWeight: 'bold', fontSize: 16 }}>$999</Text>
-            </View>
-          </View>
-        </View>
-
-        <TouchableOpacity
-          style={{
-            borderWidth: 1,
-            borderRadius: 10,
-            padding: 5,
-            alignItems: 'center',
-            borderColor: '#9095A0',
-            backgroundColor: '#f3f4f6',
-            marginTop: 10,
-          }}>
-          <Text style={{ color: '#9095A0' }}>See all</Text>
+        {/* See All Button */}
+        <TouchableOpacity style={styles.seeAllButton}>
+          <Text style={styles.seeAllText}>See all</Text>
         </TouchableOpacity>
 
-        <Image
-          source={require('../assets/converse_banner.jpg')}
-          style={{borderRadius:10, marginTop:10, width:'100%', height:120}}
-        />
+        {/* Relevant Products Section */}
+        <Text style={styles.relevantProductsTitle}>Relevant products</Text>
+        <View style={styles.relevantProductsContainer}>
+          {relevantProducts.map((item) => renderRelevantProduct(item))}
+        </View>
       </ScrollView>
 
       <View style={styles.separator} />
 
       <View style={styles.home7}>
-        <TouchableOpacity>
-          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-            <Icon name="home" size={20} color="#9095A0" />
+        <TouchableOpacity style={{width:'20%'}}>
+          <View style={{ justifyContent: 'center', alignItems: 'center', left:'20%' }}> 
+            <Icon name="home" size={'30%'} color="#9095A0" />
             <Text style={{ fontSize: 10 }}>Home</Text>
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity>
-          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-            <Icon name="search" size={20} color="#9095A0" />
+        <TouchableOpacity style={{width:'20%'}}>
+          <View style={{ justifyContent: 'center', alignItems: 'center', left:'10%'}}>
+            <Icon name="search" size={'30%'} color="#9095A0" />
             <Text style={{ fontSize: 10 }}>Search</Text>
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => handleFavoritesPress()} style={{width:'20%'}}>
           <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-            <Icon name="heart" size={20} color="#9095A0" />
+            <Icon name="heart" size={'30%'} color="#9095A0" />
             <Text style={{ fontSize: 10 }}>Favorites</Text>
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity>
-          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-            <Icon name="comment" size={20} color="#9095A0" />
+
+        <TouchableOpacity style={{width:'20%'}}>
+          <View style={{ justifyContent: 'center', alignItems: 'center' , left:'-10%'}}>
+            <Icon name="comment" size={'30%'} color="#9095A0" />
             <Text style={{ fontSize: 10 }}>Comment</Text>
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity>
-          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-            <Icon name="user" size={20} color="#9095A0" />
+        <TouchableOpacity style={{width:'20%'}}>
+          <View style={{ justifyContent: 'center', alignItems: 'center' , left:'-20%'}}>
+            <Icon name="user" size={'30%'} color="#9095A0" />
             <Text style={{ fontSize: 10 }}>Account</Text>
           </View>
         </TouchableOpacity>
@@ -477,6 +285,63 @@ const styles = StyleSheet.create({
   home5: {
     marginTop: 10,
   },
+  productGrid: {
+    justifyContent: 'center',
+  },
+  productCard: {
+    flex: 1,
+    alignItems: 'center',
+    padding: 10,
+    margin: 5,
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: '#9095A0',
+  },
+  productImage: {
+    width: 75,
+    height: 75,
+    marginBottom: 8,
+  },
+  productName: {
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  productPrice: {
+    fontSize: 14,
+    color: '#9095A0',
+  },
+  seeAllButton: {
+    alignItems: 'center',
+    marginVertical: 16,
+    padding: 10,
+    backgroundColor: '#f1f1f1',
+    borderRadius: 8,
+  },
+  seeAllText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#007AFF',
+  },
+   relevantProductsTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginTop: 16,
+    marginBottom: 8,
+  },
+  relevantProductsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  },
+  relevantProductCard: {
+    width: 120,
+    alignItems: 'center',
+    padding: 10,
+    margin: 5,
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: '#9095A0',
+  },
   separator: {
     height: 1,
     backgroundColor: '#E0E0E0',
@@ -506,3 +371,4 @@ const styles = StyleSheet.create({
 });
 
 export default FasionScreen;
+ 

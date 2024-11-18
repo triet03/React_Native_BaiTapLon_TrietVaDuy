@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import {
   View,
   Text,
@@ -10,8 +11,10 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = () => {
   const [name, setName] = useState('');
+
+  const navigation = useNavigation();
 
   const handleGetElectronic = () => {
     navigation.navigate('Electronic');
@@ -29,29 +32,30 @@ const HomeScreen = ({ navigation }) => {
     navigation.navigate('FreshFruits');
   };
 
-const handleFavoritesPress = () => {
-  // Thực hiện hành động, ví dụ: chuyển đến màn hình yêu thích
-  navigation.navigate('Favorites'); // Đảm bảo rằng màn hình 'Favorites' đã được cấu hình trong navigator
-};
+  const handleGetStarted = () => {
+    navigation.navigate('Home');
+  };
 
-  
+  const handleFavoritesPress = () => {
+    // Thực hiện hành động, ví dụ: chuyển đến màn hình yêu thích
+    navigation.navigate('Favorites'); // Đảm bảo rằng màn hình 'Favorites' đã được cấu hình trong navigator
+  };
 
   return (
     <View style={styles.homeContainer}>
       <View style={styles.home1}>
         <View style={{ flexDirection: 'row' }}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Icon name="arrow-left" size={20} color="#9095A0" />
-          </TouchableOpacity>
-          <Text style={{ left: 20, fontWeight: 'bold' }}>All Deals</Text>
+          <Text style={{ fontWeight: 'bold', fontSize: 24 }}>All Deals</Text>
         </View>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <Icon
-            name="shopping-cart"
-            size={20}
-            color="#9095A0"
-            style={{ right: 20 }}
-          />
+          <TouchableOpacity onPress={() => navigation.navigate('Cart')}>
+            <Icon
+              name="shopping-cart"
+              size={30}
+              color="#9095A0"
+              style={{ right: 20 }}
+            />
+          </TouchableOpacity>
           <Icon name="user" size={30} color="#9095A0" />
         </View>
       </View>
@@ -64,7 +68,7 @@ const handleFavoritesPress = () => {
             padding: 10,
             borderWidth: 1,
             borderRadius: 10,
-            width: 240,
+            width: '85%',
             borderColor: '#9095A0',
           }}>
           <Icon name="search" size={15} color="#9095A0" />
@@ -172,6 +176,7 @@ const handleFavoritesPress = () => {
               50% off
             </Text>
             <TouchableOpacity
+              onPress={() => handleGetFasion()}
               style={{
                 backgroundColor: 'black',
                 width: 80,
@@ -193,45 +198,54 @@ const handleFavoritesPress = () => {
         </View>
 
         <View style={styles.home5}>
-          <View>
-            <Image
-              source={require('../assets/tuisach.jpg')}
-              style={{ width: 135, height: 100, borderEndStartRadius: 10 }}
-            />
-            <Text
-              style={{
-                width: 40,
-                backgroundColor: '#e05858',
-                padding: 5,
-                borderBottomRightRadius: 20,
-                borderTopRightRadius: 20,
-                top: -90,
-                color: 'white',
-                fontSize: 12,
-                fontWeight: 'bold',
-              }}>
-              30%
-            </Text>
+          <View style={{ width: '50%' }}>
+            <TouchableOpacity onPress={() => handleGetBeauty()}>
+              <Image
+                source={require('../assets/tuisach.jpg')}
+                style={{ width: '95%', height: 100, borderEndStartRadius: 10 }}
+              />
+              <Text
+                style={{
+                  width: 40,
+                  backgroundColor: '#e05858',
+                  padding: 5,
+                  borderBottomRightRadius: 20,
+                  borderTopRightRadius: 20,
+                  top: -90,
+                  color: 'white',
+                  fontSize: 12,
+                  fontWeight: 'bold',
+                }}>
+                30%
+              </Text>
+            </TouchableOpacity>
           </View>
-          <View>
-            <Image
-              source={require('../assets/maytinh.jpg')}
-              style={{ width: 135, height: 100, borderBottomRightRadius: 10 }}
-            />
-            <Text
-              style={{
-                width: 40,
-                backgroundColor: '#ed7d2d',
-                padding: 5,
-                borderBottomRightRadius: 20,
-                borderTopRightRadius: 20,
-                top: -90,
-                color: 'white',
-                fontSize: 12,
-                fontWeight: 'bold',
-              }}>
-              30%
-            </Text>
+
+          <View style={{ width: '50%', left: '5%' }}>
+            <TouchableOpacity onPress={() => handleGetElectronic()}>
+              <Image
+                source={require('../assets/maytinh.jpg')}
+                style={{
+                  width: '95%',
+                  height: 100,
+                  borderBottomRightRadius: 10,
+                }}
+              />
+              <Text
+                style={{
+                  width: 40,
+                  backgroundColor: '#ed7d2d',
+                  padding: 5,
+                  borderBottomRightRadius: 30,
+                  borderTopRightRadius: 30,
+                  top: -90,
+                  color: 'white',
+                  fontSize: 12,
+                  fontWeight: 'bold',
+                }}>
+                30%
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
 
@@ -402,38 +416,64 @@ const handleFavoritesPress = () => {
       <View style={styles.separator} />
 
       <View style={styles.home7}>
-        <TouchableOpacity>
-          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-            <Icon name="home" size={20} color="#9095A0" />
+        <TouchableOpacity onPress={() => handleGetStarted()} style={{ width: '20%' }}>
+          <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              left: '30%',
+            }}>
+            <Icon name="home" size={'30%'} color="#9095A0" />
             <Text style={{ fontSize: 10 }}>Home</Text>
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity>
-          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-            <Icon name="search" size={20} color="#9095A0" />
+        <TouchableOpacity style={{ width: '20%' }}>
+          <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              left: '30%',
+            }}>
+            <Icon name="search" size={'30%'} color="#9095A0" />
             <Text style={{ fontSize: 10 }}>Search</Text>
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => handleFavoritesPress()}>
-          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-            <Icon name="heart" size={20} color="#9095A0" />
+        <TouchableOpacity
+          onPress={() => handleFavoritesPress()}
+          style={{ width: '20%' }}>
+          <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              left: '30%',
+            }}>
+            <Icon name="heart" size={'30%'} color="#9095A0" />
             <Text style={{ fontSize: 10 }}>Favorites</Text>
           </View>
         </TouchableOpacity>
 
-
-        <TouchableOpacity>
-          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-            <Icon name="comment" size={20} color="#9095A0" />
+        <TouchableOpacity style={{ width: '20%' }}>
+          <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              left: '30%',
+            }}>
+            <Icon name="comment" size={'30%'} color="#9095A0" />
             <Text style={{ fontSize: 10 }}>Comment</Text>
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity>
-          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-            <Icon name="user" size={20} color="#9095A0" />
+        <TouchableOpacity style={{ width: '20%' }}>
+          <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              left: '30%',
+            }}>
+            <Icon name="user" size={'30%'} color="#9095A0" />
             <Text style={{ fontSize: 10 }}>Account</Text>
           </View>
         </TouchableOpacity>
@@ -477,7 +517,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    width: '100%',
   },
+
   separator: {
     height: 1,
     backgroundColor: '#E0E0E0',
@@ -491,11 +533,12 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   scrollContainer: {
-    paddingBottom: 60, // Để tránh nội dung bị che khuất bởi thanh điều hướng
+    paddingBottom: 20, // Để tránh nội dung bị che khuất bởi thanh điều hướng
   },
   home7: {
     flexDirection: 'row',
     justifyContent: 'space-around',
+    alignItems: 'center',
     shadowColor: '#000',
     position: 'absolute',
     bottom: 0,
@@ -503,6 +546,7 @@ const styles = StyleSheet.create({
     right: 0,
     padding: 10,
     backgroundColor: 'white',
+    width: '100%',
   },
 });
 
