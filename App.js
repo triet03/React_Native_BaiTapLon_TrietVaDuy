@@ -9,11 +9,11 @@ import UserScreen from './components/UserScreen';
 import ElectronicScreen from './components/ElectronicScreen';
 import BeautyScreen from './components/BeautyScreen';
 import FasionScreen from './components/FasionScreen';
-import PaymentScreen from './components/PaymentScreen'
-import PaymentCheck from './components/PaymentCheck'
-import ElectronicDetail from './components/ElectonicDetailScreen'
-import FashionDetail from './components/FashionDetailScreen'
-import BeautyDetail from './components/BeautyDetailScreen'
+import PaymentScreen from './components/PaymentScreen';
+import PaymentCheck from './components/PaymentCheck';
+import ElectronicDetail from './components/ElectonicDetailScreen';
+import FashionDetail from './components/FashionDetailScreen';
+import BeautyDetail from './components/BeautyDetailScreen';
 
 import { CartProvider } from './components/CartContext';
 

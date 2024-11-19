@@ -14,7 +14,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import giay1 from '../assets/giay1.png';
 import giay2 from '../assets/giay2.png';
 import giay3 from '../assets/giay3.png';
-import giay4 from '../assets/giay4.png';
+import giay4 from '../assets/giay4.png'; 
 import giay5 from '../assets/giay5.png';
 import giay6 from '../assets/giay6.png';
 import giay7 from '../assets/giay7.png';

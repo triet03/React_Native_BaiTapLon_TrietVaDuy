@@ -12,7 +12,7 @@ const ElectonicDetailScreen = ({ route }) => {
 
   const handleRatingPress = () => {
     navigation.navigate('ReviewScreen');  // Điều hướng đến màn hình đánh giá
-  };
+  }; 
 
   const handleBuyNow = () => {
     addToCart(electronic);  // Thêm trái cây vào giỏ hàng

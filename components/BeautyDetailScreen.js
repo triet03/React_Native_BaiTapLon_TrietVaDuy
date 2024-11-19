@@ -19,7 +19,7 @@ const BeautyDetailScreen = ({ route }) => {
     Alert.alert('Đã thêm vào giỏ hàng');
   };
 
-  const handleFavoritePress = () => {
+  const handleFavoritePress = () => { 
     addToFavorites(beauty);  // Thêm sản phẩm vào yêu thích
     Alert.alert('Đã thêm vào yêu thích');
   };

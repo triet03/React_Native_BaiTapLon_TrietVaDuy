@@ -13,7 +13,7 @@ const FashionDetailScreen = ({ route }) => {
   const handleRatingPress = () => {
     navigation.navigate('ReviewScreen');  // Điều hướng đến màn hình đánh giá
   };
-
+ 
   const handleBuyNow = () => {
     addToCart(fashion);  // Thêm trái cây vào giỏ hàng
     Alert.alert('Đã thêm vào giỏ hàng');

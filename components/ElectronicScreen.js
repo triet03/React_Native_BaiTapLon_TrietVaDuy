@@ -12,7 +12,7 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import ip16 from '../assets/ip16.png';
-import ip15 from '../assets/iphone.png';
+import ip15 from '../assets/iphone.png'; 
 import ip14 from '../assets/electronic.png';
 import ip13 from '../assets/ip13.png';
 import mac from '../assets/macbook.png';

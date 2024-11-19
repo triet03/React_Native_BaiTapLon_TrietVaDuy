@@ -14,7 +14,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 const HomeScreen = () => {
   const [name, setName] = useState('');
 
-  const navigation = useNavigation();
+  const navigation = useNavigation(); 
 
   const handleGetElectronic = () => {
     navigation.navigate('Electronic');
