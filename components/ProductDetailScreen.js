@@ -1,26 +1,42 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import { useCart, useFavorites } from './CartContext';  // Sử dụng context cho giỏ hàng và yêu thích
 
-const BeautyDetailScreen = ({ route }) => {
-  const { beauty } = route.params;  // Nhận dữ liệu từ màn hình trước
+const ProductDetailScreen = ({ route }) => {
+  const { product } = route.params;  // Nhận sản phẩm từ màn hình trước
   const navigation = useNavigation();
   const { addToCart } = useCart();
   const { addToFavorites } = useFavorites();  // Hàm thêm vào yêu thích
 
+  const [currentRating, setCurrentRating] = useState(product.rating || 0);
+  const [currentFeedback, setCurrentFeedback] = useState(product.feedback || '');
+
+  useEffect(() => {
+    if (route.params.product.rating) {
+      setCurrentRating(route.params.product.rating);
+      setCurrentFeedback(route.params.product.feedback);
+    }
+  }, [route.params.product]);
+
   const handleRatingPress = () => {
-    navigation.navigate('ReviewScreen');  // Điều hướng đến màn hình đánh giá
+    navigation.navigate('ReviewScreen', { 
+      product, 
+      onReviewSubmitted: (newRating, newFeedback) => {
+        setCurrentRating(newRating);  // Cập nhật đánh giá
+        setCurrentFeedback(newFeedback);  // Cập nhật phản hồi
+      } 
+    });
   };
 
   const handleBuyNow = () => {
-    addToCart(beauty);  // Thêm trái cây vào giỏ hàng
+    addToCart(product);  // Thêm sản phẩm vào giỏ hàng
     Alert.alert('Đã thêm vào giỏ hàng');
   };
 
-  const handleFavoritePress = () => { 
-    addToFavorites(beauty);  // Thêm sản phẩm vào yêu thích
+  const handleFavoritePress = () => {
+    addToFavorites(product);  // Thêm sản phẩm vào yêu thích
     Alert.alert('Đã thêm vào yêu thích');
   };
 
@@ -29,30 +45,45 @@ const BeautyDetailScreen = ({ route }) => {
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.navigate('Cart')}>
-          <Text style={{fontWeight:'bold'}}>Giỏ Hàng</Text>
+          <Text style={{ fontWeight: 'bold' }}>Giỏ Hàng</Text>
         </TouchableOpacity>
-        <Text style={styles.title}>{beauty.name}</Text>
+        <Text style={styles.title}>{product.name}</Text>
         <TouchableOpacity style={styles.profileIcon}>
           <Icon name="person-circle-outline" size={30} color="#000" />
         </TouchableOpacity>
       </View>
 
-      {/* beauty Image */}
-      <Image source={beauty.image} style={styles.beautyImage} />
+      {/* Product Image */}
+      <Image source={product.image} style={styles.productImage} />
 
-      {/* beauty Price and Rating */}
+      {/* Price and Rating */}
       <View style={styles.priceRatingContainer}>
-        <Text style={styles.price}>${beauty.price}</Text>
+        <Text style={styles.price}>${product.price}</Text>
         <View style={styles.ratingContainer}>
-          <Icon name="star" size={16} color="#FFD700" />
-          <Text style={styles.ratingText}>{beauty.rating}</Text>
-          <Text style={styles.reviewCount}>({beauty.reviews} đánh giá)</Text>
+          {Array.from({ length: 5 }, (_, index) => (
+            <Icon 
+              key={index} 
+              name={index < currentRating ? "star" : "star-outline"} 
+              size={16} 
+              color="#FFD700" 
+            />
+          ))}
+          <Text style={styles.ratingText}>{currentRating}</Text>
+          <Text style={styles.reviewCount}>({product.reviews} đánh giá)</Text>
         </View>
       </View>
 
-      {/* beauty Description */}
+      {/* Product Description */}
       <Text style={styles.sectionTitle}>Mô tả</Text>
-      <Text style={styles.description}>{beauty.description}</Text>
+      <Text style={styles.description}>{product.description}</Text>
+
+      {/* Current Feedback */}
+      {currentFeedback ? (
+        <View style={styles.feedbackContainer}>
+          <Text style={styles.feedbackTitle}>Đánh giá của bạn:</Text>
+          <Text style={styles.feedbackText}>{currentFeedback}</Text>
+        </View>
+      ) : null}
 
       {/* Rating Button */}
       <TouchableOpacity style={styles.ratingButton} onPress={handleRatingPress}>
@@ -61,7 +92,7 @@ const BeautyDetailScreen = ({ route }) => {
 
       {/* Buy Now Button */}
       <TouchableOpacity style={styles.buyNowButton} onPress={handleBuyNow}>
-        <Text style={styles.buyNowText}>Mua ngay</Text>
+                <Text style={styles.buyNowText}>Mua ngay</Text>
       </TouchableOpacity>
 
       {/* Favorite Button */}
@@ -92,7 +123,7 @@ const styles = StyleSheet.create({
   profileIcon: {
     padding: 8,
   },
-  beautyImage: {
+  productImage: {
     width: '100%',
     height: 350,
     borderRadius: 8,
@@ -107,10 +138,11 @@ const styles = StyleSheet.create({
   price: {
     fontSize: 24,
     fontWeight: 'bold',
+    color: '#00A86B',
   },
   ratingContainer: {
     flexDirection: 'row',
-    alignItems: 'center', 
+    alignItems: 'center',
   },
   ratingText: {
     marginLeft: 4,
@@ -131,6 +163,21 @@ const styles = StyleSheet.create({
     color: '#666',
     marginBottom: 16,
   },
+  feedbackContainer: {
+    marginBottom: 16,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 8,
+  },
+  feedbackTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  feedbackText: {
+    fontSize: 14,
+    color: '#555',
+  },
   ratingButton: {
     backgroundColor: '#ff6347',
     borderRadius: 8,
@@ -148,6 +195,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingVertical: 12,
     alignItems: 'center',
+    marginBottom: 16,
   },
   buyNowText: {
     color: '#fff',
@@ -161,7 +209,6 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 16,
     borderRadius: 8,
-    marginTop: 16,
   },
   favoriteButtonText: {
     marginLeft: 8,
@@ -170,4 +217,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BeautyDetailScreen;
+export default ProductDetailScreen;

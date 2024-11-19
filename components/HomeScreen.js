@@ -14,7 +14,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 const HomeScreen = () => {
   const [name, setName] = useState('');
 
-  const navigation = useNavigation(); 
+  const navigation = useNavigation();
 
   const handleGetElectronic = () => {
     navigation.navigate('Electronic');
@@ -34,6 +34,10 @@ const HomeScreen = () => {
 
   const handleGetStarted = () => {
     navigation.navigate('Home');
+  };
+
+  const handleGetComment = () => {
+    navigation.navigate('Comment');
   };
 
   const handleFavoritesPress = () => {
@@ -454,7 +458,8 @@ const HomeScreen = () => {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity style={{ width: '20%' }}>
+        <TouchableOpacity 
+          onPress={() => handleGetComment()} style={{ width: '20%' }}>
           <View
             style={{
               justifyContent: 'center',

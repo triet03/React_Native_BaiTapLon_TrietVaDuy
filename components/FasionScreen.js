@@ -14,7 +14,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import giay1 from '../assets/giay1.png';
 import giay2 from '../assets/giay2.png';
 import giay3 from '../assets/giay3.png';
-import giay4 from '../assets/giay4.png'; 
+import giay4 from '../assets/giay4.png';
 import giay5 from '../assets/giay5.png';
 import giay6 from '../assets/giay6.png';
 import giay7 from '../assets/giay7.png';
@@ -42,7 +42,7 @@ const FasionScreen = ({ navigation }) => {
 
   const renderProduct = ({ item }) => (
     <TouchableOpacity
-      onPress={() => navigation.navigate('FashionDetail', { fashion: item })}
+      onPress={() => navigation.navigate('ProductDetail', { product: item })}
       style={styles.productCard}
       key={item.id}>
       <Image source={item.image} style={styles.productImage} />
@@ -53,7 +53,7 @@ const FasionScreen = ({ navigation }) => {
 
   const renderRelevantProduct = (item) => (
     <TouchableOpacity
-      onPress={() => navigation.navigate('FashionDetail', { fashion: item })}
+      onPress={() => navigation.navigate('ProductDetail', { product: item })}
       style={styles.relevantProductCard}
       key={item.id}>
       <Image source={item.image} style={styles.productImage} />
@@ -371,4 +371,3 @@ const styles = StyleSheet.create({
 });
 
 export default FasionScreen;
- 

@@ -23,7 +23,7 @@ const products = [
   { id: '2', name: 'Avocado', price: '$4', rating: 5, image: avocadoImage },
   { id: '3', name: 'Cherry', price: '$10', rating: 4, image: cherryImage },
   { id: '4', name: 'Orange', price: '$7', rating: 4, image: orangeImage },
-];
+]; 
 
 const relevantProducts = [
   { id: '5', name: 'Peach', price: '$15', rating: 4, image: peachImage },
@@ -35,7 +35,7 @@ const FreshFruitsScreen = () => {
 
   const renderProduct = ({ item }) => (
     <TouchableOpacity
-      onPress={() => navigation.navigate('FruitDetail', { fruit: item })}
+      onPress={() => navigation.navigate('ProductDetail', { product: item })}
       style={styles.productCard}
       key={item.id}
     >
@@ -47,7 +47,7 @@ const FreshFruitsScreen = () => {
 
   const renderRelevantProduct = (item) => (
     <TouchableOpacity
-      onPress={() => navigation.navigate('FruitDetail', { fruit: item })}
+      onPress={() => navigation.navigate('ProductDetail', { product: item })}
       style={styles.relevantProductCard}
       key={item.id}
     >
@@ -59,30 +59,15 @@ const FreshFruitsScreen = () => {
 
   return (
     <ScrollView style={styles.homeContainer}>
-      {/* Header */}
-      <View style={styles.headerContainer}>
-        <View style={styles.headerLeft}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Icon name="arrow-left" size={20} color="#9095A0" />
-          </TouchableOpacity>
-          <Text style={styles.headerTitle}>Fresh Fruits</Text>
-        </View>
-        <View style={styles.headerRight}>
-          <Icon name="shopping-cart" size={20} color="#9095A0" style={styles.iconSpacing} />
-          <Icon name="user" size={30} color="#9095A0" />
-        </View>
-      </View>
-
       {/* Product List */}
       <FlatList
         data={products}
         renderItem={renderProduct}
         keyExtractor={(item) => item.id}
-        numColumns={2}
+        numColumns={2} 
         contentContainerStyle={styles.productGrid}
       />
-
-      {/* See All Button */}
+      {/* See All Button */} 
       <TouchableOpacity style={styles.seeAllButton}>
         <Text style={styles.seeAllText}>See all</Text>
       </TouchableOpacity>

@@ -12,7 +12,7 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import ip16 from '../assets/ip16.png';
-import ip15 from '../assets/iphone.png'; 
+import ip15 from '../assets/iphone.png';
 import ip14 from '../assets/electronic.png';
 import ip13 from '../assets/ip13.png';
 import mac from '../assets/macbook.png';
@@ -37,7 +37,7 @@ const ElectronicScreen = ({ navigation }) => {
 
   const renderProduct = ({ item }) => (
     <TouchableOpacity
-      onPress={() => navigation.navigate('ElectronicDetail', { electronic: item })}
+      onPress={() => navigation.navigate('ProductDetail', { product: item })}
       style={styles.productCard}
       key={item.id}>
       <Image source={item.image} style={styles.productImage} />
@@ -48,7 +48,7 @@ const ElectronicScreen = ({ navigation }) => {
 
   const renderRelevantProduct = (item) => (
     <TouchableOpacity
-      onPress={() => navigation.navigate('ElectronicDetail', { electronic: item })}
+      onPress={() => navigation.navigate('ProductDetail', { product: item })}
       style={styles.relevantProductCard}
       key={item.id}>
       <Image source={item.image} style={styles.productImage} />
@@ -210,7 +210,7 @@ const ElectronicScreen = ({ navigation }) => {
       <View style={styles.separator} />
 
       <View style={styles.home7}>
-        <TouchableOpacity style={{ width: '20%' }}>
+        <TouchableOpacity style={{ width: '20%' }} >
           <View
             style={{
               justifyContent: 'center',

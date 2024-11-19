@@ -9,7 +9,7 @@ import {
   ScrollView,
   FlatList,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome'; 
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import beauty1 from '../assets/beauty.png';
 import beauty2 from '../assets/beauty1.png';
@@ -42,7 +42,7 @@ const BeautyScreen = ({ navigation }) => {
   const renderProduct = ({ item }) => (
     <TouchableOpacity
       onPress={() =>
-        navigation.navigate('BeautyDetail', { beauty: item })
+        navigation.navigate('ProductDetail', { product: item })
       }
       style={styles.productCard}
       key={item.id}>
@@ -55,7 +55,7 @@ const BeautyScreen = ({ navigation }) => {
   const renderRelevantProduct = (item) => (
     <TouchableOpacity
       onPress={() =>
-        navigation.navigate('BeautyDetail', { beauty: item })
+        navigation.navigate('ProductDetail', { product: item })
       }
       style={styles.relevantProductCard}
       key={item.id}>
