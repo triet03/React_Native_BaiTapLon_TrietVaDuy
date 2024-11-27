@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import {
   View,
   Text,
@@ -32,9 +33,16 @@ const relevantProducts = [
   { id: '7', name: 'Airpod Max', price: '$23', rating: 5, image: tainghe },
 ];
 
-const ElectronicScreen = ({ navigation }) => {
+const ElectronicScreen = () => {
   const [name, setName] = useState('');
+  const route = useRoute();
+  const { userName } = route.params;
+  const navigation = useNavigation();
 
+  const handleNavigateToUser = () => {
+    navigation.navigate('User', { userName }); // Truyền userName đến UserScreen
+  };
+  
   const renderProduct = ({ item }) => (
     <TouchableOpacity
       onPress={() => navigation.navigate('ProductDetail', { product: item })}
@@ -57,7 +65,6 @@ const ElectronicScreen = ({ navigation }) => {
     </TouchableOpacity>
   );
 
-
   return (
     <View style={styles.homeContainer}>
       <View style={styles.home1}>
@@ -65,13 +72,17 @@ const ElectronicScreen = ({ navigation }) => {
           <Text style={{ fontWeight: 'bold', fontSize: 24 }}>Electronics</Text>
         </View>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <Icon
-            name="shopping-cart"
-            size={20}
-            color="#9095A0"
-            style={{ right: 20 }}
-          />
-          <Icon name="user" size={30} color="#9095A0" />
+          <TouchableOpacity onPress={() => navigation.navigate('Cart')}>
+            <Icon
+              name="shopping-cart"
+              size={30}
+              color="#9095A0"
+              style={{ right: 20 }}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handleNavigateToUser}>
+            <Icon name="user" size={30} color="#9095A0" />
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -208,65 +219,6 @@ const ElectronicScreen = ({ navigation }) => {
       </ScrollView>
 
       <View style={styles.separator} />
-
-      <View style={styles.home7}>
-        <TouchableOpacity style={{ width: '20%' }} >
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              left: '20%',
-            }}>
-            <Icon name="home" size={'30%'} color="#9095A0" />
-            <Text style={{ fontSize: 10 }}>Home</Text>
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={{ width: '20%' }}>
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              left: '10%',
-            }}>
-            <Icon name="search" size={'30%'} color="#9095A0" />
-            <Text style={{ fontSize: 10 }}>Search</Text>
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => handleFavoritesPress()}
-          style={{ width: '20%' }}>
-          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-            <Icon name="heart" size={'30%'} color="#9095A0" />
-            <Text style={{ fontSize: 10 }}>Favorites</Text>
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={{ width: '20%' }}>
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              left: '-10%',
-            }}>
-            <Icon name="comment" size={'30%'} color="#9095A0" />
-            <Text style={{ fontSize: 10 }}>Comment</Text>
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={{ width: '20%' }}>
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              left: '-20%',
-            }}>
-            <Icon name="user" size={'30%'} color="#9095A0" />
-            <Text style={{ fontSize: 10 }}>Account</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
     </View>
   );
 };
@@ -339,7 +291,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#007AFF',
   },
-   relevantProductsTitle: {
+  relevantProductsTitle: {
     fontSize: 18,
     fontWeight: 'bold',
     marginTop: 16,

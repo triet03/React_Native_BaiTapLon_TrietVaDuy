@@ -2,33 +2,35 @@ import React, { useState } from 'react';
 import { View, Text, FlatList, StyleSheet, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { useCart } from './CartContext';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios'; // Thêm axios để gọi API
 
 const CartScreen = () => {
   const { cart, getTotalPrice } = useCart();
   const navigation = useNavigation();
 
-  // State for storing the voucher code and discount percentage
   const [voucherCode, setVoucherCode] = useState('');
-  const [discount, setDiscount] = useState(0); // Discount percentage
+  const [discount, setDiscount] = useState(0);
 
-  // Function to handle applying the voucher
-  const applyVoucher = () => {
-    // Example voucher codes and their discount percentages
-    const vouchers = {
-      'DISCOUNT10': 10, // 10% discount
-      'DISCOUNT20': 20, // 20% discount
-    };
+  const applyVoucher = async () => {
+    try {
+      // Thay URL bằng đường dẫn Mocky hoặc API backend thực tế của bạn
+      const response = await axios.get('https://run.mocky.io/v3/11e49d10-f943-4a3b-b883-65dded412036');
+      const vouchers = response.data;
 
-    if (vouchers[voucherCode]) {
-      setDiscount(vouchers[voucherCode]);
-      Alert.alert('Voucher Applied', `You received a ${vouchers[voucherCode]}% discount!`);
-    } else {
-      setDiscount(0);
-      Alert.alert('Invalid Voucher', 'The voucher code you entered is not valid.');
+      if (vouchers[voucherCode]) {
+        setDiscount(vouchers[voucherCode]);
+        Alert.alert('Voucher Applied', `You received a ${vouchers[voucherCode]}% discount!`);
+      } else {
+        setDiscount(0);
+        Alert.alert('Invalid Voucher', 'The voucher code you entered is not valid.');
+      }
+    } catch (error) {
+      console.error(error);
+      Alert.alert('Error', 'Unable to apply voucher at the moment.');
     }
   };
 
-  // Calculate the total price with discount
+  // Tính tổng tiền với giảm giá
   const totalPriceWithDiscount = getTotalPrice() * (1 - discount / 100);
 
   const renderItem = ({ item }) => (
@@ -65,7 +67,7 @@ const CartScreen = () => {
         style={styles.nextButton}
         onPress={() =>
           navigation.navigate('PaymentScreen', {
-            totalAmount: totalPriceWithDiscount, // Passing the total price
+            totalAmount: totalPriceWithDiscount, // Truyền tổng tiền sau giảm giá
           })
         }
       >
@@ -74,7 +76,6 @@ const CartScreen = () => {
     </View>
   );
 };
-
 
 const styles = StyleSheet.create({
   container: {

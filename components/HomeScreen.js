@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation,useRoute } from '@react-navigation/native';
 import {
   View,
   Text,
@@ -13,23 +13,24 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 const HomeScreen = () => {
   const [name, setName] = useState('');
-
+  const route = useRoute();
+  const { userName } = route.params;
   const navigation = useNavigation();
 
   const handleGetElectronic = () => {
-    navigation.navigate('Electronic');
+    navigation.navigate('Electronic', { userName });
   };
 
   const handleGetFasion = () => {
-    navigation.navigate('Fasion');
+    navigation.navigate('Fasion', { userName });
   };
 
   const handleGetBeauty = () => {
-    navigation.navigate('Beauty');
+    navigation.navigate('Beauty', { userName });
   };
 
   const handleGetFreshFruit = () => {
-    navigation.navigate('FreshFruits');
+    navigation.navigate('FreshFruits', { userName });
   };
 
   const handleGetStarted = () => {
@@ -38,6 +39,10 @@ const HomeScreen = () => {
 
   const handleGetComment = () => {
     navigation.navigate('Comment');
+  };
+
+  const handleNavigateToUser = () => {
+    navigation.navigate('User', { userName }); // Truyền userName đến UserScreen
   };
 
   const handleFavoritesPress = () => {
@@ -60,7 +65,9 @@ const HomeScreen = () => {
               style={{ right: 20 }}
             />
           </TouchableOpacity>
-          <Icon name="user" size={30} color="#9095A0" />
+          <TouchableOpacity onPress={handleNavigateToUser}>
+            <Icon name="user" size={30} color="#9095A0" />
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -265,154 +272,79 @@ const HomeScreen = () => {
 
         <View style={styles.home6}>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <View
-              style={{
-                width: 110,
-                height: 150,
-                backgroundColor: '#f8f9fa',
-                padding: 10,
-              }}>
-              <Image
-                source={require('../assets/giay_product.png')}
-                style={{
-                  width: 70,
-                  height: 70,
-                  borderBottomRightRadius: 10,
-                  left: 10,
-                }}
-              />
-              <Text style={{ fontWeight: 'bold', fontSize: 12, marginTop: 10 }}>
-                Shoes
-              </Text>
+            <TouchableOpacity onPress={handleGetFasion}>
               <View
                 style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  marginTop: 10,
+                  width: 110,
+                  height: 150,
+                  backgroundColor: '#f8f9fa',
+                  padding: 10,
                 }}>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                  <Image
-                    source={require('../assets/Star.png')}
-                    style={{
-                      width: 16,
-                      height: 16,
-                      borderBottomRightRadius: 10,
-                    }}
-                  />
-                  <Text style={{ fontSize: 12, left: 5, color: '#9095A0' }}>
-                    4.5
-                  </Text>
-                </View>
-                <Text
+                <Image
+                  source={require('../assets/giay_product.png')}
                   style={{
-                    fontWeight: 'bold',
-                    color: '#02bdd6',
-                    fontSize: 12,
-                  }}>
-                  $299
+                    width: 70,
+                    height: 70,
+                    borderBottomRightRadius: 10,
+                    left: 10,
+                  }}
+                />
+                <Text
+                  style={{ fontWeight: 'bold', fontSize: 12, marginTop: 10 }}>
+                  Shoes
                 </Text>
               </View>
-            </View>
+            </TouchableOpacity>
 
-            <View
-              style={{
-                width: 110,
-                height: 150,
-                backgroundColor: '#f8f9fa',
-                padding: 10,
-                left: 10,
-              }}>
-              <Image
-                source={require('../assets/tablet.png')}
-                style={{
-                  width: 70,
-                  height: 70,
-                  borderBottomRightRadius: 10,
-                  left: 10,
-                }}
-              />
-              <Text style={{ fontWeight: 'bold', fontSize: 12, marginTop: 10 }}>
-                Tablet
-              </Text>
+            <TouchableOpacity onPress={handleGetElectronic}>
               <View
                 style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  marginTop: 10,
+                  width: 110,
+                  height: 150,
+                  backgroundColor: '#f8f9fa',
+                  padding: 10,
+                  left: 10,
                 }}>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                  <Image
-                    source={require('../assets/Star.png')}
-                    style={{
-                      width: 16,
-                      height: 16,
-                      borderBottomRightRadius: 10,
-                    }}
-                  />
-                  <Text style={{ fontSize: 12, left: 5, color: '#9095A0' }}>
-                    4.5
-                  </Text>
-                </View>
-                <Text
+                <Image
+                  source={require('../assets/tablet.png')}
                   style={{
-                    fontWeight: 'bold',
-                    color: '#02bdd6',
-                    fontSize: 12,
-                  }}>
-                  $499
+                    width: 70,
+                    height: 70,
+                    borderBottomRightRadius: 10,
+                    left: 10,
+                  }}
+                />
+                <Text
+                  style={{ fontWeight: 'bold', fontSize: 12, marginTop: 10 }}>
+                  Tablet
                 </Text>
               </View>
-            </View>
+            </TouchableOpacity>
 
-            <View
-              style={{
-                width: 110,
-                height: 150,
-                backgroundColor: '#f8f9fa',
-                padding: 10,
-                left: 20,
-              }}>
-              <Image
-                source={require('../assets/pear.png')}
-                style={{
-                  width: 70,
-                  height: 70,
-                  borderBottomRightRadius: 10,
-                  left: 10,
-                }}
-              />
-              <Text style={{ fontWeight: 'bold', fontSize: 12, marginTop: 10 }}>
-                Pear
-              </Text>
+            <TouchableOpacity onPress={handleGetFreshFruit}>
               <View
                 style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  marginTop: 10,
+                  width: 110,
+                  height: 150,
+                  backgroundColor: '#f8f9fa',
+                  padding: 10,
+                  left: 20,
                 }}>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                  <Image
-                    source={require('../assets/Star.png')}
-                    style={{
-                      width: 16,
-                      height: 16,
-                      borderBottomRightRadius: 10,
-                    }}
-                  />
-                  <Text style={{ fontSize: 12, left: 5, color: '#9095A0' }}>
-                    4.5
-                  </Text>
-                </View>
-                <Text
+                <Image
+                  source={require('../assets/pear.png')}
                   style={{
-                    fontWeight: 'bold',
-                    color: '#02bdd6',
-                    fontSize: 12,
-                  }}>
-                  $499
+                    width: 70,
+                    height: 70,
+                    borderBottomRightRadius: 10,
+                    left: 10,
+                  }}
+                />
+                <Text
+                  style={{ fontWeight: 'bold', fontSize: 12, marginTop: 10 }}>
+                  Pear
                 </Text>
               </View>
-            </View>
+            </TouchableOpacity>
           </ScrollView>
         </View>
       </ScrollView>
@@ -432,18 +364,6 @@ const HomeScreen = () => {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity style={{ width: '20%' }}>
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              left: '30%',
-            }}>
-            <Icon name="search" size={'30%'} color="#9095A0" />
-            <Text style={{ fontSize: 10 }}>Search</Text>
-          </View>
-        </TouchableOpacity>
-
         <TouchableOpacity
           onPress={() => handleFavoritesPress()}
           style={{ width: '20%' }}>
@@ -458,20 +378,21 @@ const HomeScreen = () => {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity 
-          onPress={() => handleGetComment()} style={{ width: '20%' }}>
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              left: '30%',
+        <TouchableOpacity
+          onPress={() => navigation.navigate('CommentScreen')}
+          style={{ width: '20%' }}>
+            <View 
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                left: '30%',
             }}>
-            <Icon name="comment" size={'30%'} color="#9095A0" />
-            <Text style={{ fontSize: 10 }}>Comment</Text>
-          </View>
+                <Icon name="comment" size={'30%'} color="#9095A0" />
+                <Text style={{ fontSize: 10 }}>Comment</Text>
+            </View>
         </TouchableOpacity>
 
-        <TouchableOpacity style={{ width: '20%' }}>
+        <TouchableOpacity onPress={handleNavigateToUser} style={{ width: '20%' }}>
           <View
             style={{
               justifyContent: 'center',
